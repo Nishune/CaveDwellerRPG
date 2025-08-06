@@ -18,9 +18,10 @@ public class Entrance extends Location {
     @Override
     public void onExit(String direction) {
         switch (direction) {
-            case "forward" ->
+            case "north" ->
                     printDirectionMessage(direction, "You move deeper into the cave, the darkness thickens around you.");
-            case "back" -> printDirectionMessage(direction, "You step back outside, feeling the fresh air once again.");
+            case "south" ->
+                    printDirectionMessage(direction, "You step back outside, feeling the fresh air once again.");
             default -> {
                 System.out.println("Unknown direction. Try 'forward' to go deeper into the cave or 'back' to return to the entrance.");
             }

@@ -1,65 +1,69 @@
 package com.nishune.cavegame;
 
 import com.nishune.cavegame.model.Location;
-import com.nishune.cavegame.model.locations.Entrance;
+import com.nishune.cavegame.model.World;
 
 import java.util.Scanner;
 
 public class Game {
+    private World world;
     private Location currentLocation;
+    private Scanner scanner;
+    private boolean running;
 
-    public Game() {
-        currentLocation = new Entrance();
+    public Game(World world, Location currentLocation, Scanner scanner, boolean running) {
+        this.world = world;
+        this.currentLocation = currentLocation;
+        this.scanner = scanner;
+        this.running = running;
     }
+
     public void start() {
-        System.out.println("You are at the " + currentLocation.getName());
+        System.out.println("Welcome to Cave Dweller!");
         System.out.println(currentLocation.getDescription());
 
-        currentLocation.onEnter();
-    }
+        while (running) {
+            System.out.print("> ");
+            String input = scanner.nextLine().toLowerCase();
 
-    public void movePlayer(String direction) {
-
-        currentLocation.onExit(direction);
-    }
-
-    public void playGame(Scanner scanner) {
-        System.out.print("Welcome to Cave Dweller! Explore the cave and discover its secrets.");
-        System.out.println();
-        System.out.println(currentLocation.getName());
-        System.out.println(currentLocation.getDescription());
-        System.out.println();
-
-        boolean inMenu = true;
-        while (inMenu) {
-            System.out.print("What do you want to do? (enter / quit): ");
-            String choice = scanner.nextLine().trim().toLowerCase();
-
-            if (choice.equals("enter")) {
-                currentLocation.onEnter();
-                inMenu = false;
-
-                boolean playing = true;
-                while (playing) {
-                    System.out.print("\nEnter command (move <direction>/quit): ");
-                    String input = scanner.nextLine().trim().toLowerCase();
-
-                    if (input.equals("quit")) {
-                        System.out.println("Thanks for playing Cave Dweller!");
-                        playing = false;
-                    } else if (input.startsWith("move")) {
-                        String direction = input.substring(5);
-                        movePlayer(direction);
-                    } else {
-                        System.out.println("Unknown command. try 'move north' or 'quit'");
-                    }
-                }
-            } else if (choice.equals("quit")) {
-                System.out.println("Thanks for playing Cave Dweller!");
-                inMenu = false;
-            } else {
-                System.out.println("Invalid choice. Please enter 'enter' to start or 'quit' to exit.");
+            switch (input) {
+                case "north":
+                case "n":
+                    move("north");
+                    break;
+                case "south":
+                case "s":
+                    move("south");
+                    break;
+                case "east":
+                case "e":
+                    move("east");
+                    break;
+                case "west":
+                case "w":
+                    move("west");
+                    break;
+                case "quit":
+                case "q":
+                    running = false;
+                    System.out.println("Thanks for playing Cave Dweller!");
+                    break;
+                default:
+                    System.out.println("Unknown command. Try 'north', 'south', 'east', 'west', or 'quit'.");
+                    break;
             }
+        }
+    }
+
+    public void move(String direction) {
+        Location nextLocation = currentLocation.getExit(direction);
+        if (nextLocation != null) {
+            currentLocation.onExit(direction);
+            currentLocation = nextLocation;
+            currentLocation.onEnter();
+            System.out.println(currentLocation.getDescription());
+        } else {
+            System.out.println("You can't go that way!");
         }
     }
 }
