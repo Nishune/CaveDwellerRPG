@@ -15,20 +15,8 @@ public abstract class Location {
         this.exits = new HashMap<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setExit(String direction, Location location) {
@@ -39,12 +27,6 @@ public abstract class Location {
         return exits.get(direction);
     }
 
-    protected void printDirectionMessage(String direction, String message) {
-        System.out.println(message);
-    }
+    public abstract String getAvailableControls();
 
-
-    public abstract void onEnter();
-
-    public abstract void onExit(String direction);
 }

@@ -6,7 +6,7 @@ import com.nishune.cavegame.model.locations.Hallway;
 import java.util.HashMap;
 import java.util.Map;
 
-// The world class represents the gameworld and handles all the locations and their connections.
+// The world-class represents the gameworld and handles all the locations and their connections.
 public class World {
     //Map that stores all the locations with name as key. (eg, "entrance" -> Entrance object)
     private Map<String, Location> locations;

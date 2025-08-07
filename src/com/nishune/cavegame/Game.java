@@ -8,8 +8,10 @@ import java.util.Scanner;
 public class Game {
     private World world;
     private Location currentLocation;
+    private Location previousLocation;
     private Scanner scanner;
     private boolean running;
+
 
     public Game(World world, Location currentLocation, Scanner scanner, boolean running) {
         this.world = world;
@@ -18,9 +20,29 @@ public class Game {
         this.running = running;
     }
 
+    public static void printIntro() {
+        System.out.println();
+        String title = " Welcome to Cave Dweller!";
+        int width = title.length();
+        String border = repeatChar('#', width);
+        System.out.println(border);
+        System.out.println(title);
+        System.out.println(border);
+        System.out.println();
+    }
+
+    public static String repeatChar(char c, int count) {
+        return String.valueOf(c).repeat(count);
+    }
+
     public void start() {
-        System.out.println("Welcome to Cave Dweller!");
+        printIntro();
+        String border = repeatChar('-', currentLocation.getDescription().length());
+        System.out.println(border);
         System.out.println(currentLocation.getDescription());
+        System.out.println(border);
+        System.out.println();
+        System.out.println(currentLocation.getAvailableControls());
 
         while (running) {
             System.out.print("> ");
@@ -43,6 +65,10 @@ public class Game {
                 case "w":
                     move("west");
                     break;
+                case "back":
+                case "b":
+                    move("back");
+                    break;
                 case "quit":
                 case "q":
                     running = false;
@@ -56,14 +82,39 @@ public class Game {
     }
 
     public void move(String direction) {
+        if (direction.equals("back") || direction.equals("b")) {
+            if (previousLocation != null) {
+                Location temp = currentLocation;
+                currentLocation = previousLocation;
+                previousLocation = temp;
+
+
+                String border = repeatChar('-', currentLocation.getDescription().length());
+                System.out.println(border);
+                System.out.println(currentLocation.getDescription());
+                System.out.println(border);
+                System.out.println();
+                System.out.println(currentLocation.getAvailableControls());
+            } else {
+                System.out.println("You can't go back from here!");
+            }
+            return;
+        }
         Location nextLocation = currentLocation.getExit(direction);
         if (nextLocation != null) {
-            currentLocation.onExit(direction);
+            previousLocation = currentLocation;
             currentLocation = nextLocation;
-            currentLocation.onEnter();
+
+            String border = repeatChar('-', currentLocation.getDescription().length());
+            System.out.println(border);
             System.out.println(currentLocation.getDescription());
+            System.out.println(border);
+            System.out.println();
+            System.out.println(currentLocation.getAvailableControls());
         } else {
             System.out.println("You can't go that way!");
         }
     }
+
+
 }

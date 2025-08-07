@@ -11,20 +11,8 @@ public class Entrance extends Location {
     }
 
     @Override
-    public void onEnter() {
-        System.out.println("You step into the cave, the darkness enveloping you as you venture deeper.");
+    public String getAvailableControls() {
+        return "Available commands: North (n), Quit (q)";
     }
 
-    @Override
-    public void onExit(String direction) {
-        switch (direction) {
-            case "north" ->
-                    printDirectionMessage(direction, "You move deeper into the cave, the darkness thickens around you.");
-            case "south" ->
-                    printDirectionMessage(direction, "You step back outside, feeling the fresh air once again.");
-            default -> {
-                System.out.println("Unknown direction. Try 'forward' to go deeper into the cave or 'back' to return to the entrance.");
-            }
-        }
-    }
 }
