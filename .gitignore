@@ -2,6 +2,19 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
 
 ### Eclipse ###
 .apt_generated
@@ -25,5 +38,24 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+### Build Tools ###
+target/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### OS ###
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+### Logs ###
+*.log
+
+### Temporary Files ###
+*.tmp
+*.temp
+*~

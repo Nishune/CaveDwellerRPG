@@ -6,6 +6,7 @@ public class NarrowPassage extends Location {
 
     public NarrowPassage() {
         super("Narrow Passage", """
+                
                 After squeezing through the narrow passage, you find youtself in a dimly lit corridor.
                 An old chest sits against the wall, covered in dust and cobwebs.
                 

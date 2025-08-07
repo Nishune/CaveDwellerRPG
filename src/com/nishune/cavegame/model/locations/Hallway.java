@@ -6,12 +6,14 @@ public class Hallway extends Location {
 
     public Hallway() {
         super("The Hallway", """
+                
                 The cave suddenly opens up, feeling broader than before - yet it remains cold and unwelcoming.
                 
                  Three paths lie ahead:
-                 - To the North, there are signs of a struggle.
+                 - To the North, there is a damaged door with bloodstains on it.
                  - To the East, the cave seems to expand into a larger chamber.
                  - To the West, a narrow passage is open. Something glimmers faintly in the darkness.
+                
                 """);
     }
 
