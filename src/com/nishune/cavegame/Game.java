@@ -2,6 +2,7 @@ package com.nishune.cavegame;
 
 import com.nishune.cavegame.model.Location;
 import com.nishune.cavegame.model.World;
+import com.nishune.cavegame.model.character.Player;
 
 import java.util.Scanner;
 
@@ -10,29 +11,31 @@ public class Game {
     private Location currentLocation;
     private Location previousLocation;
     private Scanner scanner;
+    private Player player;
     private boolean running;
 
 
-    public Game(World world, Location currentLocation, Scanner scanner, boolean running) {
+    public Game(World world, Location currentLocation, Scanner scanner, Player player, boolean running) {
         this.world = world;
         this.currentLocation = currentLocation;
         this.scanner = scanner;
+        this.player = player;
         this.running = running;
     }
 
-    public static void printIntro() {
+    public static String repeatChar(char c, int count) {
+        return String.valueOf(c).repeat(count);
+    }
+
+    public void printIntro() {
         System.out.println();
-        String title = " Welcome to Cave Dweller!";
+        String title = " Welcome to Cave Dweller " + player.getName() + "! ";
         int width = title.length();
         String border = repeatChar('#', width);
         System.out.println(border);
         System.out.println(title);
         System.out.println(border);
         System.out.println();
-    }
-
-    public static String repeatChar(char c, int count) {
-        return String.valueOf(c).repeat(count);
     }
 
     public void start() {
