@@ -2,6 +2,7 @@ package com.nishune.cavegame.model;
 
 import com.nishune.cavegame.model.locations.Entrance;
 import com.nishune.cavegame.model.locations.Hallway;
+import com.nishune.cavegame.model.locations.NarrowPassage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class World {
     private void initializeLocations() {
         locations.put("entrance", new Entrance());
         locations.put("hallway", new Hallway());
+        locations.put("narrow passage", new NarrowPassage());
 
     }
 
@@ -31,6 +33,8 @@ public class World {
 
         locations.get("entrance").setExit("north", locations.get("hallway"));
         locations.get("hallway").setExit("south", locations.get("entrance"));
+        locations.get("hallway").setExit("west", locations.get("narrow passage"));
+        locations.get("narrow passage").setExit("east", locations.get("hallway"));
     }
 
     // returns the starting location of the game, which is the entrance.
