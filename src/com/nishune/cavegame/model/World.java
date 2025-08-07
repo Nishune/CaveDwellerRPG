@@ -1,5 +1,6 @@
 package com.nishune.cavegame.model;
 
+import com.nishune.cavegame.model.locations.BloodstainedDoor;
 import com.nishune.cavegame.model.locations.Entrance;
 import com.nishune.cavegame.model.locations.Hallway;
 import com.nishune.cavegame.model.locations.NarrowPassage;
@@ -25,6 +26,7 @@ public class World {
         locations.put("entrance", new Entrance());
         locations.put("hallway", new Hallway());
         locations.put("narrow passage", new NarrowPassage());
+        locations.put("bloodstained door", new BloodstainedDoor());
 
     }
 
@@ -35,6 +37,8 @@ public class World {
         locations.get("hallway").setExit("south", locations.get("entrance"));
         locations.get("hallway").setExit("west", locations.get("narrow passage"));
         locations.get("narrow passage").setExit("east", locations.get("hallway"));
+        locations.get("hallway").setExit("north", locations.get("bloodstained door"));
+        locations.get("bloodstained door").setExit("south", locations.get("narrow passage"));
     }
 
     // returns the starting location of the game, which is the entrance.
