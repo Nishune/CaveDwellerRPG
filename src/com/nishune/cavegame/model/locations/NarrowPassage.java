@@ -1,8 +1,11 @@
 package com.nishune.cavegame.model.locations;
 
 import com.nishune.cavegame.model.Location;
+import com.nishune.cavegame.model.items.Chest;
+import com.nishune.cavegame.model.items.HealthPotion;
 
 public class NarrowPassage extends Location {
+    private Chest chest;
 
     public NarrowPassage() {
         super("Narrow Passage", """
@@ -17,6 +20,13 @@ public class NarrowPassage extends Location {
                 - Leave the chest alone and continue exploring the cave
                 
                 """);
+        this.chest = new Chest();
+        chest.addItem(new HealthPotion());
+        chest.addItem(new HealthPotion());
+    }
+
+    public Chest getChest() {
+        return chest;
     }
 
     @Override

@@ -3,7 +3,10 @@ package com.nishune.cavegame;
 import com.nishune.cavegame.model.Location;
 import com.nishune.cavegame.model.World;
 import com.nishune.cavegame.model.character.Player;
+import com.nishune.cavegame.model.items.Item;
+import com.nishune.cavegame.model.locations.NarrowPassage;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Game {
@@ -38,6 +41,14 @@ public class Game {
         System.out.println();
     }
 
+    private void displayControls() {
+        System.out.println();
+        System.out.println("Utility commands: Inventory (i)");
+        System.out.println();
+        System.out.println(currentLocation.getAvailableControls());
+
+    }
+
     public void start() {
         printIntro();
         String border = repeatChar('-', currentLocation.getDescription().length());
@@ -45,13 +56,20 @@ public class Game {
         System.out.println(currentLocation.getDescription());
         System.out.println(border);
         System.out.println();
-        System.out.println(currentLocation.getAvailableControls());
-
+        displayControls();
         while (running) {
             System.out.print("> ");
             String input = scanner.nextLine().toLowerCase();
 
             switch (input) {
+                case "inventory":
+                case "i":
+                    player.getInventory().showInventory();
+                    break;
+                case "open":
+                case "o":
+                    openChest();
+                    break;
                 case "north":
                 case "n":
                     move("north");
@@ -96,8 +114,7 @@ public class Game {
                 System.out.println(border);
                 System.out.println(currentLocation.getDescription());
                 System.out.println(border);
-                System.out.println();
-                System.out.println(currentLocation.getAvailableControls());
+                displayControls();
             } else {
                 System.out.println("You can't go back from here!");
             }
@@ -114,10 +131,25 @@ public class Game {
             System.out.println(border);
             System.out.println();
             System.out.println(currentLocation.getAvailableControls());
+            System.out.println("Utility commands: Inventory (i)");
         } else {
             System.out.println("You can't go that way!");
         }
     }
 
-
+    private void openChest() {
+        if (currentLocation instanceof NarrowPassage) {
+            NarrowPassage passage = (NarrowPassage) currentLocation;
+            List<Item> items = passage.getChest().openChest();
+            for (Item item : items) {
+                player.getInventory().addItem(item);
+            }
+            System.out.println();
+            displayControls();
+        } else {
+            System.out.println("There is no chest here to open!");
+        }
+    }
 }
+
+

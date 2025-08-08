@@ -5,12 +5,18 @@ public class Player {
     private String gender;
     private int health;
     private int maxHealth;
+    private Inventory inventory;
 
     public Player(String name, String gender) {
         this.name = name;
         this.gender = gender;
         health = 100;
         maxHealth = 100;
+        this.inventory = new Inventory();
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public String getName() {
