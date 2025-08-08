@@ -33,8 +33,8 @@ public class Player {
         health = Math.max(0, health - damage);
     }
 
-    public void heal(int amout) {
-        health = Math.min(maxHealth, health + amout);
+    public void heal(int amount) {
+        health = Math.min(maxHealth, health + amount);
     }
 
     public boolean isAlive() {
