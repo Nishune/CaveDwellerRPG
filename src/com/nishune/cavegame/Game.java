@@ -1,8 +1,8 @@
 package com.nishune.cavegame;
 
+import com.nishune.cavegame.controller.InventoryController;
 import com.nishune.cavegame.model.Location;
 import com.nishune.cavegame.model.World;
-import com.nishune.cavegame.model.character.Equipment;
 import com.nishune.cavegame.model.character.Player;
 import com.nishune.cavegame.model.items.BronzeSword;
 import com.nishune.cavegame.model.items.Item;
@@ -19,6 +19,7 @@ public class Game {
     private Scanner scanner;
     private Player player;
     private boolean running;
+    private InventoryController inventoryController;
 
 
     public Game(World world, Location currentLocation, Scanner scanner, Player player, boolean running) {
@@ -27,6 +28,7 @@ public class Game {
         this.scanner = scanner;
         this.player = player;
         this.running = running;
+        this.inventoryController = new InventoryController(player, scanner);
     }
 
     public static String repeatChar(char c, int count) {
@@ -67,15 +69,13 @@ public class Game {
             switch (input) {
                 case "inventory":
                 case "i":
-                    interactiveInventory();
-                    break;
-                case "equip":
-                case "eq":
-                    equipWeapon();
+                    inventoryController.showInteractiveInventory();
+                    displayControls();
                     break;
                 case "character":
                 case "c":
-                    showCharacter();
+                    inventoryController.showInteractiveCharacter();
+                    displayControls();
                     break;
                 case "open":
                 case "o":
@@ -152,15 +152,6 @@ public class Game {
         }
     }
 
-    private void showCharacter() {
-        System.out.println("\n=== Character Information ===");
-        System.out.println("Name: " + player.getName());
-        System.out.println("Health: " + player.getHealth() + " / " + player.getMaxHealth());
-        System.out.println();
-        player.getEquipment().showEquipment();
-        System.out.println();
-        displayControls();
-    }
 
     private void openChest() {
         if (currentLocation instanceof NarrowPassage) {
@@ -188,90 +179,6 @@ public class Game {
                 System.out.println("You have already taken the sword from the dead warrior.");
             }
         }
-    }
-
-    private void equipWeapon() {
-        if (player.getInventory().hasItem("Warrior's Bronze Sword")) {
-            Item sword = player.getInventory().removeItem("Warrior's Bronze Sword");
-            if (sword != null) {
-                player.getEquipment().equipItem(sword, Equipment.Slot.WEAPON);
-            }
-        } else {
-            System.out.println("You dont have a weapon to equip!");
-        }
-    }
-
-    private void interactiveInventory() {
-        if (player.getInventory().isEmpty()) {
-            System.out.println("Your inventory is empty.");
-            displayControls();
-            return;
-        }
-
-        System.out.println("\n=== Interactive Inventory ===");
-        List<Item> items = player.getInventory().getItems();
-
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + items.get(i).getName() + " - " + items.get(i).getDescription());
-        }
-
-        System.out.println("\nCommands: Equip [number] (e.g. 'equip 1'), back (b)");
-        System.out.print("> ");
-
-        String input = scanner.nextLine().toLowerCase().trim();
-
-        if (input.equals("b") || input.equals("back")) {
-            displayControls();
-            return;
-        }
-
-        if (input.startsWith("equip ") || input.startsWith("eq ")) {
-            String[] parts = input.split(" ");
-            if (parts.length == 2) {
-                try {
-                    int itemIndex = Integer.parseInt(parts[1]) - 1;
-                    if (itemIndex >= 0 && itemIndex < items.size()) {
-                        equipItemByIndex(itemIndex);
-                    } else {
-                        System.out.println("Invalid item number.");
-                        interactiveInventory();
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Please enter a valid number.");
-                    interactiveInventory();
-                }
-            }
-        } else {
-            System.out.println("Unknown command. Try 'equip [number]' or 'back'.");
-            interactiveInventory();
-        }
-    }
-
-    private void equipItemByIndex(int index) {
-        List<Item> items = player.getInventory().getItems();
-        Item item = items.get(index);
-
-        Equipment.Slot slot = determineSlot(item);
-        if (slot != null) {
-            Item removedItem = player.getInventory().removeItem(item.getName());
-            if (removedItem != null) {
-                if (player.getEquipment().equipItem(removedItem, slot)) {
-                    System.out.println("Equipped " + item.getName());
-                } else {
-                    player.getInventory().addItem(removedItem);
-                }
-            }
-        } else {
-            System.out.println("This item cannot be equipped.");
-        }
-        displayControls();
-    }
-
-    private Equipment.Slot determineSlot(Item item) {
-        if (item instanceof BronzeSword) {
-            return Equipment.Slot.WEAPON;
-        }
-        return null;
     }
 }
 
