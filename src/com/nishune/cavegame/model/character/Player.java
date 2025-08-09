@@ -6,6 +6,7 @@ public class Player {
     private int health;
     private int maxHealth;
     private Inventory inventory;
+    private Equipment equipment;
 
     public Player(String name, String gender) {
         this.name = name;
@@ -13,10 +14,15 @@ public class Player {
         health = 100;
         maxHealth = 100;
         this.inventory = new Inventory();
+        this.equipment = new Equipment();
     }
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
     }
 
     public String getName() {

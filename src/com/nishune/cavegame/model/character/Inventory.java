@@ -22,14 +22,23 @@ public class Inventory {
         return items.stream().anyMatch(item -> item.getName().equals(itemName));
     }
 
-    public void showInventory() {
-        if (items.isEmpty()) {
-            System.out.println("Your inventory is empty.");
-        } else {
-            System.out.println("Inventory: ");
-            for (Item item : items) {
-                System.out.println("- " + item.getName());
+    public Item removeItem(String itemName) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getName().equals(itemName)) {
+                return items.remove(i);
             }
         }
+        return null;
     }
+
+    public List<Item> getItems() {
+        return new ArrayList<>(items);
+    }
+
+    ;
+
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
 }
