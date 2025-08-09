@@ -3,7 +3,9 @@ package com.nishune.cavegame;
 import com.nishune.cavegame.model.Location;
 import com.nishune.cavegame.model.World;
 import com.nishune.cavegame.model.character.Player;
+import com.nishune.cavegame.model.items.BronzeSword;
 import com.nishune.cavegame.model.items.Item;
+import com.nishune.cavegame.model.locations.BloodstainedDoor;
 import com.nishune.cavegame.model.locations.NarrowPassage;
 
 import java.util.List;
@@ -69,6 +71,10 @@ public class Game {
                 case "open":
                 case "o":
                     openChest();
+                    break;
+                case "take":
+                case "t":
+                    takeSword();
                     break;
                 case "north":
                 case "n":
@@ -148,6 +154,20 @@ public class Game {
             displayControls();
         } else {
             System.out.println("There is no chest here to open!");
+        }
+    }
+
+    private void takeSword() {
+        if (currentLocation instanceof BloodstainedDoor) {
+            BloodstainedDoor bloodstainedRoom = (BloodstainedDoor) currentLocation;
+            if (!bloodstainedRoom.isSwordTaken()) {
+                BronzeSword sword = bloodstainedRoom.getSword();
+                player.getInventory().addItem(sword);
+                bloodstainedRoom.setSwordTaken(true);
+                displayControls();
+            } else {
+                System.out.println("You have already taken the sword from the dead warrior.");
+            }
         }
     }
 }
