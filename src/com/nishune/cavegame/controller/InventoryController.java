@@ -66,39 +66,9 @@ public class InventoryController {
         System.out.println("Name: " + player.getName());
         System.out.println("Health: " + player.getHealth() + " / " + player.getMaxHealth());
         System.out.println();
-        player.getEquipment().showEquipment();
-        System.out.println();
 
-        boolean hasEquippedItems = false;
-        for (Equipment.Slot slot : Equipment.Slot.values()) {
-            if (player.getEquipment().getEquippedItem(slot) != null) {
-                hasEquippedItems = true;
-                break;
-            }
-        }
 
-        if (hasEquippedItems) {
-            System.out.println("Commands: Unequip (uneq), Back (b)");
-            System.out.print("> ");
-
-            String input = scanner.nextLine().toLowerCase().trim();
-
-            if (input.equals("b") || input.equals("back")) {
-                return;
-            }
-
-            if (input.equals("uneq") || input.equals("unequip")) {
-                showInteractiveUnequip();
-            } else {
-                System.out.println("Unknown command. Try 'unequip' or 'back'.");
-                showInteractiveCharacter();
-            }
-        }
-    }
-
-    private void showInteractiveUnequip() {
-        System.out.println("\n=== Unequip Items ===");
-
+        System.out.println("Equipped items:");
         int itemCount = 0;
         Equipment.Slot[] equippedSlots = new Equipment.Slot[Equipment.Slot.values().length];
 
@@ -108,22 +78,23 @@ public class InventoryController {
                 itemCount++;
                 equippedSlots[itemCount - 1] = slot;
                 System.out.println(itemCount + ". " + equippedItem.getName() + " (" + slot.toString().toLowerCase() + ")");
+            } else {
+                System.out.println("- " + slot.toString().toLowerCase() + ": Nothing equipped");
             }
         }
 
-        if (itemCount == 0) {
-            System.out.println("No items equipped.");
-            showInteractiveCharacter();
-            return;
-        }
+        System.out.println();
 
-        System.out.println("\nCommands: Unequip [number] (e.g. 'unequip 1'), Back (b)");
+        if (itemCount > 0) {
+            System.out.println("Commands: Unequip [number] (e.g. 'unequip 1'), Back (b)");
+        } else {
+            System.out.println("Commands: Back (b)");
+        }
         System.out.print("> ");
 
         String input = scanner.nextLine().toLowerCase().trim();
 
         if (input.equals("b") || input.equals("back")) {
-            showInteractiveCharacter();
             return;
         }
 
@@ -134,18 +105,22 @@ public class InventoryController {
                     int itemIndex = Integer.parseInt(parts[1]) - 1;
                     if (itemIndex >= 0 && itemIndex < itemCount) {
                         unequipItemBySlot(equippedSlots[itemIndex]);
+                        showInteractiveCharacter();
                     } else {
                         System.out.println("Invalid item number.");
-                        showInteractiveUnequip();
+                        showInteractiveCharacter();
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter a valid number.");
-                    showInteractiveUnequip();
+                    showInteractiveCharacter();
                 }
+            } else {
+                System.out.println("Invalid command format. Use 'unequip [number]'.");
+                showInteractiveCharacter();
             }
         } else {
             System.out.println("Unknown command. Try 'unequip [number]' or 'back'.");
-            showInteractiveUnequip();
+            showInteractiveCharacter();
         }
     }
 
@@ -157,9 +132,7 @@ public class InventoryController {
         if (slot != null) {
             Item removedItem = player.getInventory().removeItem(item.getName());
             if (removedItem != null) {
-                if (player.getEquipment().equipItem(removedItem, slot)) {
-                    System.out.println("Equipped " + item.getName());
-                } else {
+                if (!player.getEquipment().equipItem(removedItem, slot)) {
                     player.getInventory().addItem(removedItem);
                 }
             }
@@ -172,7 +145,6 @@ public class InventoryController {
         Item unequippedItem = player.getEquipment().unequipItem(slot);
         if (unequippedItem != null) {
             player.getInventory().addItem(unequippedItem);
-            System.out.println("Unequipped " + unequippedItem.getName() + " and added it to inventory.");
         }
     }
 

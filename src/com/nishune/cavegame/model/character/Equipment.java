@@ -15,10 +15,12 @@ public class Equipment {
 
     public boolean equipItem(Item item, Slot slot) {
         if (equippedItems.containsKey(slot)) {
+            System.out.println();
             System.out.println("You have already equipped an item in the " + slot.name().toLowerCase() + " slot.");
             return false;
         }
         equippedItems.put(slot, item);
+        System.out.println();
         System.out.println("Equipped " + item.getName() + " in " + slot.toString().toLowerCase() + " slot.");
         return true;
     }
