@@ -21,6 +21,19 @@ public class CommandRegistry {
         InventoryCommand inventoryCommand = new InventoryCommand();
         registerCommand("inventory", inventoryCommand);
         registerCommand("i", inventoryCommand);
+
+        registerCommand("north", new MoveCommand("north"));
+        registerCommand("n", new MoveCommand("north"));
+        registerCommand("south", new MoveCommand("south"));
+        registerCommand("s", new MoveCommand("south"));
+        registerCommand("east", new MoveCommand("east"));
+        registerCommand("e", new MoveCommand("east"));
+        registerCommand("west", new MoveCommand("west"));
+        registerCommand("w", new MoveCommand("west"));
+
+        BackCommand backCommand = new BackCommand();
+        registerCommand("back", backCommand);
+        registerCommand("b", backCommand);
     }
 
     public void registerCommand(String keyword, GameCommand command) {
