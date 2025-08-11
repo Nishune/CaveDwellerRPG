@@ -2,7 +2,7 @@ package com.nishune.cavegame.model.items;
 
 import com.nishune.cavegame.model.character.Player;
 
-public abstract class ConsumableItem {
+public abstract class ConsumableItem extends Item {
 
     public ConsumableItem(String name, String description) {
         super(name, description);

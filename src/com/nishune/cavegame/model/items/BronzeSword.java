@@ -1,6 +1,8 @@
 package com.nishune.cavegame.model.items;
 
-public class BronzeSword extends Item {
+import com.nishune.cavegame.model.character.Equipment;
+
+public class BronzeSword extends EquippableItem {
 
     private int damage;
 
@@ -10,7 +12,13 @@ public class BronzeSword extends Item {
     }
 
 
+    @Override
+    public Equipment.Slot getSlot() {
+        return Equipment.Slot.WEAPON;
+    }
+
     public int getDamage() {
         return damage;
     }
 }
+
