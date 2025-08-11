@@ -2,6 +2,7 @@ package com.nishune.cavegame.command;
 
 import com.nishune.cavegame.controller.InventoryController;
 import com.nishune.cavegame.model.Location;
+import com.nishune.cavegame.model.World;
 import com.nishune.cavegame.model.character.Player;
 
 import java.util.Scanner;
@@ -9,14 +10,16 @@ import java.util.Scanner;
 public class GameContext {
 
     private Player player;
+    private World world;
     private Location currentLocation;
     private Location previousLocation;
     private InventoryController inventoryController;
     private Scanner scanner;
     private boolean running;
 
-    public GameContext(Player player, Location currentLocation, InventoryController inventoryController, Scanner scanner, boolean running) {
+    public GameContext(Player player, World world, Location currentLocation, InventoryController inventoryController, Scanner scanner, boolean running) {
         this.player = player;
+        this.world = world;
         this.currentLocation = currentLocation;
         this.inventoryController = inventoryController;
         this.scanner = scanner;
@@ -25,6 +28,10 @@ public class GameContext {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public World getWorld() {
+        return world;
     }
 
     public Location getCurrentLocation() {
