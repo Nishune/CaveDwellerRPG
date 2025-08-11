@@ -22,6 +22,18 @@ public class CommandRegistry {
         registerCommand("inventory", inventoryCommand);
         registerCommand("i", inventoryCommand);
 
+        CharacterCommand characterCommand = new CharacterCommand();
+        registerCommand("character", characterCommand);
+        registerCommand("c", characterCommand);
+
+        TakeCommand takeCommand = new TakeCommand();
+        registerCommand("take", takeCommand);
+        registerCommand("t", takeCommand);
+
+        OpenCommand openCommand = new OpenCommand();
+        registerCommand("open", openCommand);
+        registerCommand("o", openCommand);
+
         registerCommand("north", new MoveCommand("north"));
         registerCommand("n", new MoveCommand("north"));
         registerCommand("south", new MoveCommand("south"));

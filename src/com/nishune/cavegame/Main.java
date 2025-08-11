@@ -47,7 +47,5 @@ public class Main {
         System.out.println(border);
         System.out.println();
         System.out.println(location.getAvailableControls());
-        System.out.println("Utility commands: Inventory (i), Character (c)");
     }
-
 }
