@@ -28,7 +28,7 @@ public class CharacterCreator {
                     gender = "Male";
                     break;
                 case "2":
-                    gender = "female";
+                    gender = "Female";
                     break;
                 default:
                     System.out.println("Invalid choice. Please enter 1 or 2.");
