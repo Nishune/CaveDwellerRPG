@@ -5,6 +5,7 @@ public class InventoryCommand implements GameCommand {
     @Override
     public boolean execute(GameContext context) {
         context.getInventoryController().showInteractiveInventory();
+        context.displayCurrentLocation();
         return true;
     }
 

@@ -21,7 +21,7 @@ public class Chest {
             isOpened = true;
             System.out.println("You opened the chest and found: ");
             for (Item item : contents) {
-                System.out.println("- " + item.getName());
+                System.out.println("- " + item.getName() + " which has been added to your inventory.");
             }
             return new ArrayList<>(contents);
         } else {

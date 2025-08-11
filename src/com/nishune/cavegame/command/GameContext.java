@@ -72,4 +72,15 @@ public class GameContext {
             this.currentLocation = newLocation;
         }
     }
+
+    public void displayCurrentLocation() {
+        String description = currentLocation.getDescription();
+        String border = "-".repeat(description.length());
+        System.out.println();
+        System.out.println(border);
+        System.out.println(description);
+        System.out.println(border);
+        System.out.println();
+        System.out.println(currentLocation.getAvailableControls());
+    }
 }

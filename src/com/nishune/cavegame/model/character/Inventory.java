@@ -15,8 +15,6 @@ public class Inventory {
 
     public void addItem(Item item) {
         items.add(item);
-        System.out.println();
-        System.out.println("Added " + item + " to inventory.");
     }
 
     public boolean hasItem(String itemName) {

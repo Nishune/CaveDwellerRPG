@@ -18,22 +18,17 @@ public class GameEngine {
     }
 
     public void run() {
-        System.out.println("Game started! Type 'help' for available commands.");
+        System.out.println("Game started! Type 'help' or 'h' for available commands.");
 
         while (context.isRunning()) {
             System.out.print("> ");
             String input = context.getScanner().nextLine().trim().toLowerCase();
 
-            if (input.equals("help")) {
-                commandRegistry.displayAvailableCommands();
-                continue;
-            }
-
             GameCommand command = commandRegistry.getCommand(input);
             if (command != null) {
                 command.execute(context);
             } else {
-                System.out.println("Unknown command: " + input + ". Type 'help' for available commands.");
+                System.out.println("Unknown command: '" + input + "'. Type 'help' or 'h' for available commands.");
             }
         }
     }

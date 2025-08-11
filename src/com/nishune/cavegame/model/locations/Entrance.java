@@ -12,7 +12,7 @@ public class Entrance extends Location {
 
     @Override
     public String getAvailableControls() {
-        return "Available commands: North (n), Quit (q)";
+        return "Available commands: North (n), Inventory (i), Character (c), Help (h), Quit (q)";
     }
 
 }

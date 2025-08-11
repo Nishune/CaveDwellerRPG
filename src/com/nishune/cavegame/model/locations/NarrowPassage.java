@@ -31,6 +31,6 @@ public class NarrowPassage extends Location {
 
     @Override
     public String getAvailableControls() {
-        return "Available commands: Open Chest (o), Go Back (b), Quit Game (q)";
+        return "Available commands: Open Chest (o), Back (b), Inventory (i), Character (c), Help (h), Quit (q)";
     }
 }

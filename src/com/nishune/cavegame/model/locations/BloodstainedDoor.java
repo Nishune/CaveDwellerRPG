@@ -38,6 +38,6 @@ public class BloodstainedDoor extends Location {
 
     @Override
     public String getAvailableControls() {
-        return "Available commands: Take Sword (t), Step Back (b), Quit Game (q)";
+        return "Available commands: Take Sword (t), Back (b), Inventory (i), Character (c), Help (h), Quit Game (q)";
     }
 }

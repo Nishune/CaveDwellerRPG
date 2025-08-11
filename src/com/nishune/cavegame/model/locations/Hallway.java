@@ -19,7 +19,7 @@ public class Hallway extends Location {
 
     @Override
     public String getAvailableControls() {
-        return "Available commands: North (n), East (e), West (w), Back (b), Quit (q)";
+        return "Available commands: North (n), East (e), West (w), Back (b), Inventory (i), Character (c), Help (h), Quit (q)";
     }
 
 

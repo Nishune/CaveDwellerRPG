@@ -15,6 +15,7 @@ public class OpenCommand implements GameCommand {
             for (Item item : items) {
                 context.getPlayer().getInventory().addItem(item);
             }
+            context.displayCurrentLocation();
             return true;
         } else {
             System.out.println("There is nothing to open here.");

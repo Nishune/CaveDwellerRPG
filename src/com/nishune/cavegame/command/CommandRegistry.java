@@ -18,6 +18,10 @@ public class CommandRegistry {
         registerCommand("quit", quitCommand);
         registerCommand("q", quitCommand);
 
+        HelpCommand helpCommand = new HelpCommand();
+        registerCommand("help", helpCommand);
+        registerCommand("h", helpCommand);
+
         InventoryCommand inventoryCommand = new InventoryCommand();
         registerCommand("inventory", inventoryCommand);
         registerCommand("i", inventoryCommand);
