@@ -34,7 +34,6 @@ public class Inventory {
         return new ArrayList<>(items);
     }
 
-    ;
 
     public boolean isEmpty() {
         return items.isEmpty();
